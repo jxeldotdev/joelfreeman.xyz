@@ -10,6 +10,8 @@ jobs:
       - aws-s3/sync:
           from: .
           to: 's3://joelfreeman.xyz'
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           arguments: |
             --acl public read \
             --cache-control "max-age=86400"
