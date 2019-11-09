@@ -9,7 +9,7 @@ jobs:
       - checkout
       - aws-s3/sync:
           from: .
-          to 's3://joelfreeman.xyz'
+          to: 's3://joelfreeman.xyz'
           arguments: |
             --acl public read \
             --cache-control "max-age=86400"
