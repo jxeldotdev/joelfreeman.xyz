@@ -1,12 +1,28 @@
 version: 2.1
 jobs:
+  test:
+    docker:
+      - image: 'circleci/ruby:latest'
+    steps:
+      - checkout
+      - run: gem install mdl
+      - run: mdl blog/content/posts/
   build:
     docker:
       - image: 'circleci/python:3.7'
     steps:
       - checkout
-      - run: ls blog/themes/hermit
+      - run: apt-get install hugo
+      - run: cd blog/ && hugo
       - run: pip install awscli --user
       - run: aws configure set aws_access_key_id $ACCESS_KEY
       - run: aws configure set aws_secret_access_key $SECRET_KEY 
-      - run: aws s3 sync website/ s3://joelfreeman.xyz
+      - run: aws s3 sync blog/ s3://joelfreeman.xyz
+workflows:
+  version: 2.1
+    build_and_test:
+     jobs:
+      - test
+      - build:
+          requires:
+            - test
