@@ -9,3 +9,7 @@ variable "domain_name" {
 variable "origin_id" {
   default = "s3-origin-joelfreemanxyz"
 }
+
+variable "region" {
+  default = "ap-southeast-2"
+}
