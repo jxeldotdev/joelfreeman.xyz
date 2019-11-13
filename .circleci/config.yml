@@ -20,8 +20,8 @@ jobs:
       - run: aws s3 sync blog/ s3://joelfreeman.xyz
 workflows:
   version: 2.1
-    build_and_test:
-     jobs:
+  build_and_test:
+    jobs:
       - test
       - build:
           requires:
