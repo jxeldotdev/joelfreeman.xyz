@@ -1,4 +1,4 @@
-variable "bucket-name" {
+variable "bucket_name" {
   default = "joelfreemanxyz-bucket"
 }
 
