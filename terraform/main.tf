@@ -1,7 +1,7 @@
 provider "aws" {
-  region = "ap-southeast-2"
+  region = "${var.region}"
 }
-
+// we need this for creating the ssl cert 
 provider "aws" {
   region = "us-east-1"
   alias = "us-east-1"
@@ -9,7 +9,7 @@ provider "aws" {
 
 // Create S3 bucket. This is used as hosting for the static website.
 resource "aws_s3_bucket" "site_bucket" {
-  bucket = "joelfreemanxyz-bucket"
+  bucket = "${var.bucket_name}"
   acl    = "public-read"
   policy = "${file("policy.json")}"
   force_destroy = true
@@ -20,20 +20,17 @@ resource "aws_s3_bucket" "site_bucket" {
   }
 }
 
-locals {
-  s3_origin_id = "joelfreemanxyz_origin_id"
-}
 
 // Pull in data from Route53 zone so we can create dns records for SSL Certificate Validation
 data "aws_route53_zone" "hosted_zone" { 
-    name         = "joelfreeman.xyz."
+    name         = "${var.domain_name}"
     private_zone = false
 }
 
 // Create SSL certificate for CloudFront Distribution
 resource "aws_acm_certificate" "ssl_cert" { 
   provider = "aws.us-east-1"
-  domain_name       = "joelfreeman.xyz"
+  domain_name       = "${var.domain-name}"
   validation_method = "DNS"
 
   lifecycle {
@@ -60,7 +57,7 @@ resource "aws_acm_certificate_validation" "ssl_cert_validation" {
 
 
 // Create Cloudfront Distribution
-resource "aws_cloudfront_distribution" "joelfreemanxyz_s3_cloudfront_distribution" {
+resource "aws_cloudfront_distribution" "s3_cloudfront_distribution" {
   origin {
     domain_name = "${aws_s3_bucket.site_bucket.bucket_regional_domain_name}"
     origin_id = "${local.s3_origin_id}"
@@ -106,19 +103,18 @@ resource "aws_cloudfront_distribution" "joelfreemanxyz_s3_cloudfront_distributio
   depends_on = ["aws_acm_certificate_validation.ssl_cert_validation", "aws_s3_bucket.site_bucket"]
 }
 
-resource "aws_route53_record" "cloudfront_to_domain_a_record" {
+resource "aws_route53_record" "cloudfront_a_record" {
   zone_id = "${data.aws_route53_zone.hosted_zone.id}"
-  name    = "joelfreeman.xyz"
+  name    = "${var.domain_name}"
   type    = "A"
   
   alias {
-    name = replace(aws_cloudfront_distribution.joelfreemanxyz_s3_cloudfront_distribution.domain_name, "/[.]$/", "")
-    zone_id = "${aws_cloudfront_distribution.joelfreemanxyz_s3_cloudfront_distribution.hosted_zone_id}"
+    name = replace(aws_cloudfront_distribution.s3_cloudfront_distribution.domain_name, "/[.]$/", "")
+    zone_id = "${aws_cloudfront_distribution.s3_cloudfront_distribution.hosted_zone_id}"
     evaluate_target_health = true
   }
 
-  depends_on = [aws_cloudfront_distribution.joelfreemanxyz_s3_cloudfront_distribution]
+  depends_on = [aws_cloudfront_distribution.s3_cloudfront_distribution]
 }
-
 
 
