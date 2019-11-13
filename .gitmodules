@@ -1,6 +1,0 @@
-[submodule "site/themes/hermit"]
-	path = site/themes/hermit
-	url = https://github.com/Track3/hermit.git
-[submodule "site/themes/hello-friend"]
-	path = site/themes/hello-friend
-	url = https://github.com/panr/hugo-theme-hello-friend.git
