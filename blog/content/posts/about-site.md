@@ -6,7 +6,7 @@ draft: true
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed condimentum vehicula tincidunt. Mauris nulla massa,
-dapibus sit amet rutrum ut, laoreet ac orci. 
+dapibus sit amet rutrum ut, laoreet ac orci.
 Vestibulum fringilla purus a lectus mollis, et fermentum nisl interdum.
 Quisque vitae justo a arcu varius lacinia. Integer eu turpis libero.
 Proin vitae fermentum ligula. In nulla lorem, mattis eu efficitur non,
@@ -28,19 +28,20 @@ Proin et eros a tortor cursus rhoncus. Pellentesque habitant morbi tristique
 senectus et netus et malesuada fames ac turpis egestas.
 Vestibulum sodales purus nec magna rhoncus, ut finibus est fringilla.
 In varius, mi in rutrum molestie, elit est porta arcu, in fermentum sem leo at tellus.
-Mauris auctor velit nulla, a varius ipsum lobortis et. Pellentesque vitae posuere ipsum,
-at eleifend ex. Ut condimentum, lorem mollis egestas sagittis, mi diam gravida quam, 
-id pellentesque lacus libero non nulla. Sed vel dolor porttitor,
-viverra lectus condimentum, placerat ex.
+Mauris auctor velit nulla, a varius ipsum lobortis et. 
+Pellentesque vitae posuere ipsum,
+at eleifend ex. Ut condimentum, lorem mollis egestas sagittis, 
+mi diam gravida quam, id pellentesque lacus libero non nulla.
+Sed vel dolor porttitor, viverra lectus condimentum, placerat ex.
 
 ## Deployment
 
-Vivamus a sollicitudin nisi. Aliquam dolor mauris, efficitur id pharetra in, 
-commodo vitae augue. Curabitur nec lorem a urna aliquam tempus id id ipsum. 
+Vivamus a sollicitudin nisi. Aliquam dolor mauris, efficitur id pharetra in,
+commodo vitae augue. Curabitur nec lorem a urna aliquam tempus id id ipsum.
 Donec quis faucibus neque. Mauris sit amet mauris in risus venenatis suscipit.
 Curabitur pellentesque ac turpis in finibus. Pellentesque commodo diam velit.
 Phasellus sit amet gravida mi. Phasellus in ante in felis porta ullamcorper.
-Curabitur luctus nibh in ligula malesuada, a rutrum risus pulvinar. 
-Curabitur semper condimentum nisi, non placerat quam. 
-Cras sagittis nisl quis risus volutpat, id suscipit lectus blandit. 
+Curabitur luctus nibh in ligula malesuada, a rutrum risus pulvinar.
+Curabitur semper condimentum nisi, non placerat quam.
+Cras sagittis nisl quis risus volutpat, id suscipit lectus blandit.
 Duis neque mauris, consectetur lobortis posuere in, tincidunt vel dolor.
