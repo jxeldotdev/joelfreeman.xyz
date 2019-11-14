@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: git submodule update --init --recursive
       - run: sudo apt-get install hugo
-      - run: cd blog/ && hugo
+      - run: cd blog/ && hugo -D
       - run: pip install awscli --user
       - run: aws configure set aws_access_key_id $ACCESS_KEY
       - run: aws configure set aws_secret_access_key $SECRET_KEY 
