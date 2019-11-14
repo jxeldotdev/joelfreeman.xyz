@@ -60,7 +60,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
 
   [[menu.main]]
     name = "posts"
-    url = "posts/"
+    url = "posts/index.html"
     weight = 10
 
 [[params.social]]
