@@ -1,15 +1,7 @@
-variable "bucket_name" {
-  default = "joelfreemanxyz-bucket"
-}
+bucket_name = "joelfreemanxyz-bucket"
 
-variable "domain_name" {
-  default = "joelfreeman.xyz"
-}
+domain_name = "joelfreeman.xyz"
 
-variable "origin_id" {
-  default = "s3-origin-joelfreemanxyz"
-}
+origin_id = "s3-origin-joelfreemanxyz"
 
-variable "region" {
-  default = "ap-southeast-2"
-}
+region = "ap-southeast-2"

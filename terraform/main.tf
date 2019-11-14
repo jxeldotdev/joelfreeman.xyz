@@ -1,5 +1,13 @@
+variable "bucket_name" {}
+
+variable "domain_name" {}
+
+variable "origin_id" {}
+
+variable "region" {}
+
 provider "aws" {
-  region = "${var.region}"
+  region = var.region
 }
 // we need this for creating the ssl cert 
 provider "aws" {
@@ -9,7 +17,7 @@ provider "aws" {
 
 // Create S3 bucket. This is used as hosting for the static website.
 resource "aws_s3_bucket" "site_bucket" {
-  bucket = "${var.bucket_name}"
+  bucket = var.bucket_name
   acl    = "public-read"
   policy = "${file("policy.json")}"
   force_destroy = true
@@ -23,14 +31,14 @@ resource "aws_s3_bucket" "site_bucket" {
 
 // Pull in data from Route53 zone so we can create dns records for SSL Certificate Validation
 data "aws_route53_zone" "hosted_zone" { 
-    name         = "${var.domain_name}"
+    name         = var.domain_name
     private_zone = false
 }
 
 // Create SSL certificate for CloudFront Distribution
 resource "aws_acm_certificate" "ssl_cert" { 
   provider = "aws.us-east-1"
-  domain_name       = "${var.domain-name}"
+  domain_name       = var.domain_name
   validation_method = "DNS"
 
   lifecycle {
@@ -60,7 +68,7 @@ resource "aws_acm_certificate_validation" "ssl_cert_validation" {
 resource "aws_cloudfront_distribution" "s3_cloudfront_distribution" {
   origin {
     domain_name = "${aws_s3_bucket.site_bucket.bucket_regional_domain_name}"
-    origin_id = "${local.s3_origin_id}"
+    origin_id = var.origin_id
   }
 
   enabled = true
@@ -72,7 +80,7 @@ resource "aws_cloudfront_distribution" "s3_cloudfront_distribution" {
   default_cache_behavior {
     allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods = ["GET", "HEAD"]
-    target_origin_id = "${local.s3_origin_id}"
+    target_origin_id = var.origin_id
 
     forwarded_values {
       query_string = false
