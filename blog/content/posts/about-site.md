@@ -28,9 +28,9 @@ Proin et eros a tortor cursus rhoncus. Pellentesque habitant morbi tristique
 senectus et netus et malesuada fames ac turpis egestas.
 Vestibulum sodales purus nec magna rhoncus, ut finibus est fringilla.
 In varius, mi in rutrum molestie, elit est porta arcu, in fermentum sem leo at tellus.
-Mauris auctor velit nulla, a varius ipsum lobortis et. 
+Mauris auctor velit nulla, a varius ipsum lobortis et.
 Pellentesque vitae posuere ipsum,
-at eleifend ex. Ut condimentum, lorem mollis egestas sagittis, 
+at eleifend ex. Ut condimentum, lorem mollis egestas sagittis,
 mi diam gravida quam, id pellentesque lacus libero non nulla.
 Sed vel dolor porttitor, viverra lectus condimentum, placerat ex.
 
