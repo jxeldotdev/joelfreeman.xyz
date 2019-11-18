@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  
+  comment = "bruh"
 }
 
 // Create S3 bucket. This is used as hosting for the static website.
@@ -32,22 +32,22 @@ resource "aws_s3_bucket" "site_bucket" {
 // s3 bucket policy , only allow CloudFront access to it 
 resource "aws_s3_bucket_policy" "site_bucket_policy" {
   bucket = "${aws_s3_bucket.site_bucket.bucket}"
-  
-  policy = <<POLICY
-  {
-    "Version":"2012-10-17",
-    "Id":"S3_CLOUDFRONT_ONLY_ACCESS",
-    "Statement":[
-      {
-        "Sid":"Grant a CloudFront Origin Identity access to support private content",
-        "Effect":"Allow",
-        "Principal":{"CanonicalUser":"${aws_cloudfront_origin_access_identity.origin_access_identity.s3_canonical_user_id}"},
-        "Action":"s3:GetObject",
-        "Resource":"arn:aws:s3:::${var.bucket_name}/*"
-      }
-    ]
-  }
-  POLICY
+
+  policy = <<EOF
+{
+  "Version":"2012-10-17",
+  "Id":"S3_CLOUDFRONT_ONLY_ACCESS",
+  "Statement":[
+    {
+      "Sid": "Allow-OAI-Access-To-Bucket",
+      "Effect":"Allow",
+      "Principal":{"CanonicalUser":"${aws_cloudfront_origin_access_identity.origin_access_identity.s3_canonical_user_id}"},
+      "Action":"s3:GetObject",
+      "Resource":"arn:aws:s3:::${var.bucket_name}/*"
+    }
+  ]
+}
+EOF
 }
 
 resource "aws_iam_role" "lambda_iam_role" {
@@ -60,7 +60,8 @@ resource "aws_iam_role" "lambda_iam_role" {
     {
       "Action": "sts:AssumeRole",
       "Principal": {
-        "Service": "lambda.amazonaws.com"
+        "Service": "lambda.amazonaws.com",
+        "Service": "edgelambda.amazonaws.com"
       },
       "Effect": "Allow",
       "Sid": ""
@@ -71,10 +72,12 @@ EOF
 }
 
 resource "aws_lambda_function" "s3_lambda_redirect" {
+  provider = "aws.us-east-1"
   filename = "lambda_function.zip"
   function_name = "lambda_s3_cloudfront_subdirectory_default_index"
   role = "${aws_iam_role.lambda_iam_role.arn}"
   handler = "index.handler"
+  publish = true
   runtime = "nodejs8.10"
 }
 
