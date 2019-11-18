@@ -29,7 +29,7 @@ workflows:
               only: pipeline
       - build:
           requires:
-            - test
+            - test:
             filters:
               branches:
                 only: pipeline
