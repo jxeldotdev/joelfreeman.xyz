@@ -42,8 +42,14 @@ resource "aws_s3_bucket_policy" "site_bucket_policy" {
       "Sid": "Allow-OAI-Access-To-Bucket",
       "Effect":"Allow",
       "Principal":{"CanonicalUser":"${aws_cloudfront_origin_access_identity.origin_access_identity.s3_canonical_user_id}"},
-      "Action":"s3:GetObject",
-      "Resource":"arn:aws:s3:::${var.bucket_name}/*"
+      "Action": [
+	  		"s3:GetObject",
+				"s3:ListBucket"
+	  	],
+      "Resource": [
+				"arn:aws:s3:::${var.bucket_name}/*",
+				"arn:aws:s3:::${var.bucket_name}"
+			]
     }
   ]
 }
