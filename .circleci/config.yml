@@ -23,14 +23,5 @@ workflows:
   version: 2.1
   build_and_test:
     jobs:
-      - test:
-          filters:
-            branches:
-              only: pipeline
-      - build:
-          requires:
-            - test:
-		            filters:
-		              branches:
-		                only: pipeline
-              
+      - test
+      - build
