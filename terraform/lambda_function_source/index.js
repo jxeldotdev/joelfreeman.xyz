@@ -10,7 +10,8 @@ exports.handler = (event, context, callback) => {
     if(olduri.endsWith('/')) {
         // Match any '/' that occurs at the end of a URI. Replace it with a default index
         var newuri = olduri.replace(/\/$/, '\/index.html');
-    } else {
+    } else if (olduri.endsWith(".css") || olduri.endsWith(".html")) {
+
         // append "/" to end of string
         var newuri = olduri + '/'
     }
