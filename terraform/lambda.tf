@@ -21,7 +21,7 @@ EOF
 
 // create lambda function
 resource "aws_lambda_function" "lambda_cloudfront_redirect" {
-
+  provider	= aws.us-east-1
   filename      = "lambda_function.zip"
   function_name = "cloudfront_redirect"
   role          = "${aws_iam_role.lambda_iam_role.arn}"
