@@ -11,6 +11,6 @@ provider "aws" {
 }
 
 provider "aws" {
-  region = "us-east-1"
-  alias = "us-east-1"
+  region = var.cloudfront_region
+  alias = "cloudfront_region"
 }
