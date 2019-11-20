@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "ssl_cert" { 
-  provider = "aws.us-east-1"
+  provider = "aws.cloudfront_region"
   domain_name       = var.domain_name
   validation_method = "DNS"
 
@@ -9,7 +9,7 @@ resource "aws_acm_certificate" "ssl_cert" {
 }
 
 resource "aws_acm_certificate_validation" "ssl_cert_validation" { 
-    provider = "aws.us-east-1"
+    provider = "aws.cloudfront_region"
     certificate_arn           = "${aws_acm_certificate.ssl_cert.arn}"
     validation_record_fqdns   = ["${aws_route53_record.ssl_cert_dns_validation_records.fqdn}"]
 
