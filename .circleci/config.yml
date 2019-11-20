@@ -23,5 +23,13 @@ workflows:
   version: 2.1
   build_and_test:
     jobs:
-      - test
-      - build
+      - test:
+          filters:
+            branches:
+              only:
+                - master
+      - build:
+          filters:
+            branches:
+              only:
+                - master
