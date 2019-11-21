@@ -1,7 +1,7 @@
 ---
 title: "About this site."
 date: 2019-11-13T20:58:30+13:00
-draft: true
+draft: false
 ---
 
 This is a personal blog that documents my personal projects.
