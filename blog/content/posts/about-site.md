@@ -31,13 +31,13 @@ A brief explination of what the  is as such:
 
 You can see a diagram of this below.
 
-![CI/CD Diagram](cicddiagram.png)
+![CI/CD Diagram](/cicddiagram.png)
 
 ## How the site works.
 
 Here is a basic diagram of the infrastructure of the site.
 
-![Infrastructure Diagram](infradiagram.png)
+![Infrastructure Diagram](/infradiagram.png)
 
 A user will go to 'joelfreeman.xyz', and route53 will redirect them to the CloudFront Distribution.
 The CloudFront distribution will call the Lambda@Edge function which will change the URI.
