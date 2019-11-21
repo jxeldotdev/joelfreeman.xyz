@@ -23,7 +23,7 @@ exports.handler = (event, context, callback) => {
         console.log("Requrest URI: " + request.uri);
         console.log("Old URI: " + olduri);
         console.log("New URI: " + newuri);
-    } else if (olduri.endsWith(".xml")) {
+    } else if (olduri.endsWith(".xml") || olduri.endsWith(".png")) {
 
         // Do nothing, only write to log
         newuri = olduri; // only assigning it so i don't get confused if i look at logs
