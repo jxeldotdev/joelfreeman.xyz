@@ -1,47 +1,55 @@
 ---
 title: "About this site."
 date: 2019-11-13T20:58:30+13:00
-draft: true
+draft: false
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Sed condimentum vehicula tincidunt. Mauris nulla massa,
-dapibus sit amet rutrum ut, laoreet ac orci.
-Vestibulum fringilla purus a lectus mollis, et fermentum nisl interdum.
-Quisque vitae justo a arcu varius lacinia. Integer eu turpis libero.
-Proin vitae fermentum ligula. In nulla lorem, mattis eu efficitur non,
-laoreet id turpis. Duis faucibus, mauris eu elementum condimentum,
-dolor nulla rutrum metus, eu sodales purus est ut metus.
-Aliquam posuere volutpat lectus, eget rhoncus metus imperdiet sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Vestibulum vehicula nisl lacus, ut semper odio iaculis et.
-Nulla lorem odio, sagittis non porttitor quis, egestas placerat est.
-Duis porttitor tristique ullamcorper. Nulla aliquam tincidunt mollis.
-Fusce vitae fringilla elit, quis luctus tortor.
-Duis tempor finibus nisl quis pharetra.
+This is a personal blog that documents my personal projects.
+I started this project mainly as a way for me to learn a bit of AWS and Terraform.
+The technologies used are:
+- AWS (CloudFront, S3, Lambda@Edge, Route53, ACM)
+- CircleCI
+- Node.JS (the Lambda function is written in node)
+- Hugo
+- Terraform
+- Git
 
-# Automated site workflow
+# CI/CD Pipeline
 
-Duis tristique leo a lacus venenatis tempus. Vivamus vehicula mi ac iaculis iaculis.
-Vivamus ut lorem non neque posuere sagittis a vitae felis.
-Proin et eros a tortor cursus rhoncus. Pellentesque habitant morbi tristique
-senectus et netus et malesuada fames ac turpis egestas.
-Vestibulum sodales purus nec magna rhoncus, ut finibus est fringilla.
-In varius, mi in rutrum molestie, elit est porta arcu, in fermentum sem leo at tellus.
-Mauris auctor velit nulla, a varius ipsum lobortis et.
-Pellentesque vitae posuere ipsum,
-at eleifend ex. Ut condimentum, lorem mollis egestas sagittis,
-mi diam gravida quam, id pellentesque lacus libero non nulla.
-Sed vel dolor porttitor, viverra lectus condimentum, placerat ex.
+Since I am using Hugo, the entire site is static files.
+This allows me to have the entire site in a Git repository
+and to make use of CI/CD for easy deployment and upates.
+A brief explination of what the  is as such:
+- I will make a change to the repository, and make a pull request to the master branch.
+- My CircleCI pipeline will be triggered and do the following:
+- Clone the repository and submodules
+- Lint the markdown files
+- If the linting did not fail, it will:
+- Generate the static files
+- Install and configure AWS CLI with environment variables
+- And sync the Local files in the '/blog/' directory with the s3 bucket.
+
+You can see a diagram of this below.
+
+![CI/CD Diagram](cicddiagram.png)
+
+## How the site works.
+
+Here is a basic diagram of the infrastructure of the site.
+
+![Infrastructure Diagram](infradiagram.png)
+
+A user will go to 'joelfreeman.xyz', and route53 will redirect them to the CloudFront Distribution.
+The CloudFront distribution will call the Lambda@Edge function which will change the URI.
+If the URI does not end in "/" or ".html" or ".css" a "/index.html" will be appended to the URI.
+This is because CloudFront does not support default indexes in subdirectories.
+The file that the user is trying to access in the s3 bucket
+will then be loaded through the CloudFront Distribution to the user.
+If the file does not exist, it will load a 404 page.
 
 ## Deployment
 
-Vivamus a sollicitudin nisi. Aliquam dolor mauris, efficitur id pharetra in,
-commodo vitae augue. Curabitur nec lorem a urna aliquam tempus id id ipsum.
-Donec quis faucibus neque. Mauris sit amet mauris in risus venenatis suscipit.
-Curabitur pellentesque ac turpis in finibus. Pellentesque commodo diam velit.
-Phasellus sit amet gravida mi. Phasellus in ante in felis porta ullamcorper.
-Curabitur luctus nibh in ligula malesuada, a rutrum risus pulvinar.
-Curabitur semper condimentum nisi, non placerat quam.
-Cras sagittis nisl quis risus volutpat, id suscipit lectus blandit.
-Duis neque mauris, consectetur lobortis posuere in, tincidunt vel dolor.
+I deployed my via terraform. you can view the module in the 
+terraform directory of the repository for this site on my GitHub.
+
+Thanks for Reading! :)
