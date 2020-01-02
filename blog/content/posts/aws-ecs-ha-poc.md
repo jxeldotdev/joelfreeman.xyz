@@ -57,7 +57,7 @@ I chose GitLab CI for this.
 
 A simple diagram of the CI/CD pipeline is below
 
-[CI/CD pipeline diagram](/ci_cd_pipeline_aws_ecs_ha_app.png)
+![CI/CD pipeline diagram](/ci_cd_pipeline_aws_ecs_ha_app.png)
 
 The CI/CD pipeline will do the following:
 
