@@ -1,12 +1,5 @@
 version: 2.1
 jobs:
-  test:
-    docker:
-      - image: 'circleci/ruby:latest'
-    steps:
-      - checkout
-      - run: gem install mdl
-      - run: mdl blog/content/posts/
   build:
     docker:
       - image: 'circleci/python:3.7'
@@ -23,11 +16,6 @@ workflows:
   version: 2.1
   build_and_test:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - master
       - build:
           filters:
             branches:

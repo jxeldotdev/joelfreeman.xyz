@@ -4,7 +4,8 @@ date: 2020-01-02T14:48:48+13:00
 draft: false
 ---
 
-After finishing this website, I decided that I wanted to learn more about AWS so I decided that I would create a project that allowed me to learn some more, so here we are.
+After finishing this website, I decided that I wanted to learn more about AWS,
+So I decided that I would create a project that allowed me to learn some more.
 
 ## AWS Infrastructure
 
@@ -14,12 +15,16 @@ Here's a simple diagram of the AWS infrastructure.
 There are a few things not shown in this diagram, these being:
 
 - The ECS Service itself
-- The App Autoscaling policies to scale the amount of tasks in the service up and down
+
+- The App Autoscaling policies to scale the amount of tasks in service up and down
+
 - CloudWatch Alarms to trigger afformentioned policies
 - CloudWatch Log Groups
 - Application Load Balancer target group
 
-You can view the terraform modules (and all the source code for the project!) used to deploy this project in the [github repository for this project](https://github.com/joelfreemanxyz/aws-ecs-ha-app).
+You can view the terraform modules (and all the source code for the project!)
+used to deploy this project in the
+[github repository for this project](https://github.com/joelfreemanxyz/aws-ecs-ha-app).
 
 ## High Availability and Load Balancing
 
@@ -35,11 +40,14 @@ For autoscaling it is rather simple; I have two Cloudwatch alarms and two app au
 The first Cloudwatch alarms listens for the average cpu load in the service being 80% or above for 60 seconds,
 While the second listens for the average cpu load in the service being 10% or less for 60 seconds.
 
-As far as the app autoscaling policies go, the first will increase the task count in the service by one, and the second will decrease it by one.
+As far as the app autoscaling policies go,
+the first will increase the task count in the service by one,
+and the second will decrease it by one.
 
-If the first alarm is triggered, it will trigger the app autoscaling policy that increases task count in the service by one.
-If the second alarm is triggered, it will trigger the app autoscaling policy that decreases task count in the service by one.
-
+If the first alarm is triggered,
+it will trigger the app autoscaling policy that increases task count in the service by one.
+If the second alarm is triggered,
+it will trigger the app autoscaling policy that decreases task count in the service by one.
 
 ## Automated Deployments with GitLab CI and ecs-deploy
 
@@ -52,23 +60,24 @@ A simple diagram of the CI/CD pipeline is below
 [CI/CD pipeline diagram](/ci_cd_pipeline_aws_ecs_ha_app.png)
 
 The CI/CD pipeline will do the following:
-- Test the application (using tests)
-- Build the application's docker image
-- Test the application in docker
-- Push the docker image to the [Docker hub repository](https://hub.docker.com/r/joelfreeman/aws-ecs-ha-app)
-- Deploy the application using [ecs-deploy](https://github.com/silinternational/ecs-deploy), which will do the following:
 
-1. Create a new revision of my task definition with a specified image
-2. Update the service to use the newly created task definition
-3. This will create 4 new tasks using the new task definiton.
-4. Once these tasks are running and pass healthchecks, the tasks using the old task definition will be killed and the deployment will succeed
-5. If the tasks fail, ecs-deploy will edit the service to use the previous task definition and the deployment will fail.
+1. Test the application (using tests)
+1. Build the application's docker image
+1. Test the application in docker
+1. Push the docker image to the [Docker hub repository](https://hub.docker.com/r/joelfreeman/aws-ecs-ha-app)
+1. Deploy the application using [ecs-deploy](https://github.com/silinternational/ecs-deploy), which will do the following:
 
+1. Create a new revision of my task definition with a specified image.
+1. Update the service to use the newly created task definition.
+1. This will create 4 new tasks using the new task definiton.
+1. Once these tasks are running and pass healthchecks, the tasks using the old task definition will be killed and the deployment will succeed
+1. If the tasks fail, ecs-deploy will edit the service to use the previous task definition and the deployment will fail.
 
 And that's it! if you want some more information about the project, feel free to view the source code for everything [here.](https://github.com/joelfreemanxyz/aws-ecs-ha-app)
 
 Also, please note that this project is only for personal learning purposes.
- 
-I very little experience in the industry and I recently got my first job working with AWS and Linux, so the majority of the choices of what technology is used was based on what technology the company uses; I'm only seventeen after all!
+I have very little experience in the industry
+and I recently got my first job working with AWS and Linux,
+so the majority of the choices of what technology is used was based on what technology the company uses.
 
 Thanks for reading!
