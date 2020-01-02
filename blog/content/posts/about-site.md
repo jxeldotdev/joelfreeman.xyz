@@ -20,14 +20,14 @@ Since I am using Hugo, the entire site is static files.
 This allows me to have the entire site in a Git repository
 and to make use of CI/CD for easy deployment and upates.
 A brief explination of what the  is as such:
-- I will make a change to the repository, and make a pull request to the master branch.<br>
-- My CircleCI pipeline will be triggered and do the following:<br>
-- Clone the repository and submodules<br>
-- Lint the markdown files<br>
-- If the linting did not fail, it will:<br>
-- Generate the static files<br>
-- Install and configure AWS CLI with environment variables<br>
-- And sync the Local files in the '/blog/' directory with the s3 bucket.<br>
+- I will make a change to the repository, and make a pull request to the master branch.
+- My CircleCI pipeline will be triggered and do the following:
+- Clone the repository and submodules
+- Lint the markdown files
+- If the linting did not fail, it will:
+- Generate the static files
+- Install and configure AWS CLI with environment variables
+- And sync the Local files in the '/blog/' directory with the s3 bucket.
 
 You can see a diagram of this below.
 
