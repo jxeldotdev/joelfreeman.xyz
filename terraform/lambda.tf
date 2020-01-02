@@ -26,7 +26,7 @@ resource "aws_lambda_function" "lambda_cloudfront_redirect" {
   function_name = "cloudfront_redirect_func"
   role          = "${aws_iam_role.lambda_iam_role.arn}"
   handler       = "index.handler"
-  runtime       = "nodejs8.10"
+  runtime       = "nodejs12.x"
   publish       = "true"
 
   depends_on = ["aws_iam_role.lambda_iam_role"]
